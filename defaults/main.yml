@@ -1,1 +1,4 @@
 ---
+chrony_servers:
+  - ntp.nict.jp
+chrony_allow_networks: []

@@ -1,8 +1,12 @@
 # Managed by ansible
 
+{% if chrony_servers is iterable and chrony_servers is not string %}
 {% for item in chrony_servers %}
 server {{ item }} iburst
 {% endfor %}
+{% else %}
+server {{ chrony_servers }} iburst
+{% endif %}
 
 # Ignore stratum in source selection.
 stratumweight 0
@@ -18,9 +22,13 @@ rtcsync
 makestep 10 3
 
 # Allow NTP client access from local network.
+{% if chrony_allow_networks is iterable and chrony_allow_networks is not string %}
 {% for item in chrony_allow_networks %}
 allow {{ item }}
 {% endfor %}
+{% else %}
+allow {{ chrony_allow_networks }}
+{% endif %}
 
 # Listen for commands only on localhost.
 bindcmdaddress 127.0.0.1

@@ -1,9 +1,13 @@
 ---
 - name: Ensure chrony is installed.
-  yum: name=chrony state=installed
+  yum:
+    name: chrony
+    state: installed
 
 - name: Copy chrony config file in place.
-  template: src=chrony.conf.j2 dest=/etc/chrony.conf
+  template:
+    src: chrony.conf.j2
+    dest: /etc/chrony.conf
   notify: restart chronyd
 
 # service
